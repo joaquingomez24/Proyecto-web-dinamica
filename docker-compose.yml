@@ -1,0 +1,29 @@
+# MySQL solo para ASHE. Puerto 3308: el 3306 es de "mi-mysql" (proyecto real) y el 3307 de ATHLETICS.
+# Prender:  docker compose up -d      Apagar:  docker compose stop
+# Nombre fijo del proyecto: sin esto Docker usa el nombre de la carpeta ("original") y puede chocar con otro proyecto
+name: ashe
+services:
+  mysql:
+    # MySQL 26.7.0, imagen del 27/07/2026 (fijada por digest: la misma que usa ATHLETICS)
+    image: mysql@sha256:66aec17cd21a956029b83f083b813073859e8355dc1a00e55df6ba02f0e32345
+    container_name: ashe-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: Africa/Cairo
+    ports:
+      - "127.0.0.1:${DB_PORT}:3306"
+    volumes:
+      - ashe-mysql-datos:/var/lib/mysql
+      - ./servidor/bd/esquema.sql:/docker-entrypoint-initdb.d/01-esquema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  ashe-mysql-datos:

@@ -1,0 +1,330 @@
+.pv {
+  position: fixed;
+  inset: 0;
+  z-index: 97;
+  background: var(--bone);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.pv__ghost {
+  position: fixed;
+  z-index: 98;
+  background-size: cover;
+  pointer-events: none;
+}
+.pv__close {
+  position: fixed;
+  z-index: 3;
+  top: calc(var(--nav-top) + 10px);
+  right: var(--gutter);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 14px;
+  background: var(--bone);
+  box-shadow: inset 0 0 0 1px var(--ink);
+  transition: background-color 0.3s, color 0.3s;
+}
+.pv__close:hover {
+  background: var(--ink);
+  color: var(--bone);
+}
+.pv__close span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.pv__layout {
+  display: grid;
+  grid-template-columns: 58fr 42fr;
+  min-height: 100vh;
+}
+.pv__gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pv__shot {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: #d8d3cb;
+}
+.pv__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pv__counter {
+  display: none;
+}
+
+.pv__info {
+  position: relative;
+}
+.pv__sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: calc(var(--nav-h) + 70px) calc(var(--gutter) * 2) 48px;
+  max-width: 620px;
+}
+.pv__crumbs {
+  color: var(--ash);
+}
+.pv__crumbs span {
+  color: var(--ink);
+}
+.pv__name {
+  font-size: clamp(44px, 4.6vw, 84px);
+  line-height: 0.92;
+}
+.pv__price {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pv__price .price {
+  font-size: 16px;
+}
+.pv__stock {
+  margin-top: 8px;
+  color: #a4331d;
+}
+.pv__buy {
+  display: flex;
+  gap: 8px;
+}
+.pv__qty {
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.pv__qty button {
+  width: 42px;
+  height: 60px;
+  font-size: 18px;
+}
+.pv__qty button:hover {
+  background: var(--ink);
+  color: var(--bone);
+}
+.pv__qty span {
+  min-width: 20px;
+  text-align: center;
+}
+.pv__buy .pv__add {
+  flex: 1;
+}
+.pv__line {
+  font-size: 22px;
+  line-height: 1.15;
+  color: var(--ink-2);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.pv__group {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.pv__group legend {
+  padding: 0;
+  margin-bottom: 10px;
+  color: var(--ash);
+  width: 100%;
+}
+.pv__group legend span {
+  color: var(--ink);
+}
+.pv__size-legend {
+  display: flex;
+  justify-content: space-between;
+}
+.pv__group .pv__need {
+  color: #a4331d;
+}
+.pv__colours {
+  display: flex;
+  gap: 8px;
+}
+.pv__colour {
+  padding: 3px;
+  box-shadow: inset 0 0 0 1px transparent;
+  transition: box-shadow 0.3s;
+}
+.pv__colour i {
+  display: block;
+  width: 30px;
+  height: 30px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+.pv__colour.is-active,
+.pv__colour:hover {
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+.pv__sizes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 6px;
+}
+.pv__size {
+  height: 46px;
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: box-shadow 0.25s, background-color 0.25s, color 0.25s;
+}
+.pv__size:hover:not([disabled]) {
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+.pv__size.is-active {
+  background: var(--ink);
+  color: var(--bone);
+}
+.pv__size[disabled] {
+  color: var(--ash-2);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+.pv__group.is-error .pv__size:not([disabled]) {
+  box-shadow: inset 0 0 0 1px #a4331d;
+}
+.pv__hint {
+  margin-top: 8px;
+  color: var(--ash);
+  text-transform: none;
+}
+
+.pv__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pv__add {
+  width: 100%;
+  min-height: 60px;
+}
+.pv__add-fill {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--saffron);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+.pv__add.is-adding .pv__add-fill {
+  transition: transform 0.65s var(--e-inout);
+  transform: scaleX(1);
+}
+.pv__add.is-added {
+  --bg: var(--saffron);
+}
+.pv__add[disabled] {
+  opacity: 1;
+  cursor: progress;
+}
+.pv__ship {
+  color: var(--ash);
+  text-align: center;
+}
+
+.pv__panels {
+  border-top: 1px solid var(--ink);
+}
+.pv__panel {
+  border-bottom: 1px solid var(--line);
+}
+.pv__panel-head {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 0;
+  text-align: left;
+}
+.pv__panel-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.6s var(--e-out);
+}
+.pv__panel-body p {
+  overflow: hidden;
+  max-width: 48ch;
+  color: var(--ink-2);
+}
+.pv__panel.is-open .pv__panel-body {
+  grid-template-rows: 1fr;
+}
+.pv__panel.is-open .pv__panel-body p {
+  padding-bottom: 18px;
+}
+
+.pv__pairs {
+  padding: 64px var(--gutter) 72px;
+  border-top: 1px solid var(--line);
+}
+.pv__pairs-title {
+  font-size: clamp(48px, 6vw, 96px);
+  margin-bottom: 24px;
+}
+.pv__pairs-title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  color: var(--saffron);
+}
+.pv__pairs-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px var(--gutter);
+}
+
+@media (max-width: 900px) {
+  .pv__layout {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .pv__gallery {
+    position: relative;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 0;
+  }
+  .pv__gallery::-webkit-scrollbar { display: none; }
+  .pv__shot {
+    flex: 0 0 100%;
+    height: 72svh;
+    scroll-snap-align: start;
+  }
+  .pv__counter {
+    display: block;
+    position: absolute;
+    top: calc(72svh - 34px);
+    left: var(--gutter);
+    padding: 3px 6px;
+    background: var(--bone);
+  }
+  .pv__layout {
+    position: relative;
+  }
+  .pv__sticky {
+    position: static;
+    padding: 28px var(--gutter) 40px;
+  }
+  .pv__close {
+    top: calc(var(--nav-top) + 4px);
+  }
+  .pv__pairs-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 10px;
+  }
+}

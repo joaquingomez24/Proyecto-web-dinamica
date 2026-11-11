@@ -1,0 +1,10 @@
+.foot { padding: 64px var(--gutter) 28px; border-top: 1px solid var(--line); margin-top: 96px; }
+.foot__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+.foot__col-head { color: var(--ash); margin-bottom: 12px; }
+.foot__cols, .foot__col { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.foot__cols { flex-direction: row; gap: 40px; grid-column: span 2; }
+.foot__field { display: flex; gap: 8px; margin-top: 16px; }
+.foot__field input { flex: 1; min-height: 52px; padding: 0 14px; border: 1px solid var(--line); background: transparent; }
+.foot__err { color: #a4331d; margin-top: 8px; }
+.foot__legal { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 64px; color: var(--ash); }
+@media (max-width: 800px) { .foot__grid { grid-template-columns: 1fr; } .foot__cols { grid-column: auto; flex-wrap: wrap; } }

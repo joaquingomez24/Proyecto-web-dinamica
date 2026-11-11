@@ -1,0 +1,418 @@
+/* ————————————————————————————————————————————————
+   ASHE — design tokens
+   Bone paper, ink type, one saffron accent (taken from Look 05).
+   ———————————————————————————————————————————————— */
+:root {
+  --bone: #eae6df;
+  --paper: #f3f0ea;
+  --studio: #e4e3e0;
+  --ink: #121110;
+  --ink-2: #2a2826;
+  --ash: #8a857d;
+  --ash-2: #b7b2a9;
+  --clay: #8d6a55;
+  --saffron: #c9772b;
+  --line: rgba(18, 17, 16, 0.16);
+
+  --serif: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
+  --sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --gutter: clamp(16px, 2.2vw, 36px);
+  --nav-h: 64px;
+  --nav-top: 94px;
+
+  --e-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-inout: cubic-bezier(0.87, 0, 0.13, 1);
+  --e-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-anchor: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+html.is-locked {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+}
+ul,
+ol {
+  list-style: none;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ——— Type system ——— */
+.t-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.t-label {
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 70;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.t-serif {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.t-display {
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 62;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+}
+.t-body {
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 38ch;
+}
+
+/* line masks for staggered reveals */
+.mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+.mask > * {
+  display: block;
+}
+
+/* ——— Buttons ——— */
+.btn {
+  --bg: var(--ink);
+  --fg: var(--bone);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 52px;
+  padding: 0 22px;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 75;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.5s var(--e-out), transform 0.3s var(--e-out);
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--saffron);
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform 0.6s var(--e-out);
+}
+.btn:hover::before {
+  transform: scaleY(1);
+}
+.btn:active {
+  transform: scale(0.985);
+}
+.btn[disabled] {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.btn[disabled]::before {
+  display: none;
+}
+.btn--ghost {
+  --bg: transparent;
+  --fg: currentColor;
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+.btn--ghost:hover {
+  color: var(--ink);
+}
+.btn--light {
+  --bg: var(--bone);
+  --fg: var(--ink);
+}
+.btn .btn__roll {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.2em;
+  line-height: 1.2em;
+}
+.btn .btn__roll > span {
+  display: block;
+  transition: transform 0.6s var(--e-out);
+}
+.btn .btn__roll > span::after {
+  content: attr(data-text);
+  display: block;
+}
+.btn:hover .btn__roll > span {
+  transform: translateY(-50%);
+}
+
+/* underline link */
+.u-link {
+  position: relative;
+  display: inline-block;
+}
+.u-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform 0.6s var(--e-out);
+}
+.u-link:hover::after,
+.u-link[aria-current='true']::after {
+  transform: scaleX(1);
+  transform-origin: 0 50%;
+}
+
+/* image frames */
+.frame {
+  position: relative;
+  overflow: hidden;
+  background: #d9d5ce;
+}
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* film grain over the whole page — very low, adds print texture */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+
+/* ——— shared commerce atoms ——— */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 75;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--bone);
+  white-space: nowrap;
+}
+.badge--new { background: var(--saffron); color: var(--ink); }
+.badge--limited { background: var(--bone); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.badge--low { background: #a4331d; color: #fff; }
+.badge--sale { background: #a4331d; color: #fff; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 80;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed='true'],
+.chip.is-active { background: var(--ink); color: var(--bone); border-color: var(--ink); }
+.chip sup { font-family: var(--mono); font-size: 9px; opacity: 0.6; }
+
+.price { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+.price s { color: var(--ash); margin-right: 6px; }
+.price--sale { color: #a4331d; }
+
+.sticker {
+  display: inline-block;
+  padding: 6px 10px 5px;
+  background: var(--saffron);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 70;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+}
+
+.fly {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 130;
+  background-size: cover;
+  pointer-events: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.ticker {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker__track {
+  display: inline-flex;
+  animation: ticker 110s linear infinite;
+}
+.ticker__track > * {
+  flex: none;
+}
+.ticker:hover .ticker__track {
+  animation-play-state: paused;
+}
+@keyframes ticker {
+  to { transform: translateX(-50%); }
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.section-title {
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 62;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(56px, 9vw, 150px);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+}
+.section-title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.04em;
+  color: var(--saffron);
+}
+
+/* ——— phones: drop effects that cost a full-screen repaint per frame ——— */
+@media (pointer: coarse), (max-width: 900px) {
+  .grain {
+    display: none;
+  }
+}

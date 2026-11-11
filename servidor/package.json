@@ -1,0 +1,18 @@
+{
+  "name": "ashe-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API local de ASHE: catálogo y pedidos en MySQL (Docker)",
+  "main": "servidor.js",
+  "scripts": {
+    "start": "node --env-file=../.env servidor.js",
+    "dev": "node --env-file=../.env --watch servidor.js",
+    "cargar-datos": "node --env-file=../.env bd/cargar-datos.mjs",
+    "base:prender": "docker compose -f ../docker-compose.yml --env-file ../.env up -d --wait",
+    "base:apagar": "docker compose -f ../docker-compose.yml --env-file ../.env stop"
+  },
+  "dependencies": {
+    "express": "4.21.2",
+    "mysql2": "3.11.5"
+  }
+}
